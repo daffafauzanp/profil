@@ -19,19 +19,77 @@
             background: #f4f7fc;
             color: #26334d;
             line-height: 1.7;
+            overflow-x: hidden;
         }
 
-        /* HEADER PROFIL */
+        /* HEADER */
         header {
             min-height: 100vh;
             background: linear-gradient(135deg, #101b35, #24477f, #4169e1);
+            background-size: 200% 200%;
+            animation: gradientMove 9s ease infinite;
             display: flex;
             align-items: center;
             justify-content: center;
             padding: 40px 20px;
             color: white;
+            position: relative;
+            overflow: hidden;
         }
 
+        @keyframes gradientMove {
+            0%, 100% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+        }
+
+        /* ORNAMEN MELAYANG */
+        .floating-ornaments {
+            position: absolute;
+            inset: 0;
+            overflow: hidden;
+            pointer-events: none;
+        }
+
+        .ornament {
+            position: absolute;
+            font-size: 42px;
+            opacity: 0.35;
+            animation: floating 5s ease-in-out infinite;
+        }
+
+        .music {
+            top: 15%;
+            left: 8%;
+        }
+
+        .guitar {
+            top: 20%;
+            right: 8%;
+            animation-delay: 1s;
+        }
+
+        .volley {
+            bottom: 15%;
+            left: 12%;
+            animation-delay: 2s;
+        }
+
+        .music-two {
+            bottom: 15%;
+            right: 12%;
+            animation-delay: 1.5s;
+        }
+
+        @keyframes floating {
+            0%, 100% {
+                transform: translateY(0) rotate(-8deg);
+            }
+            50% {
+                transform: translateY(-30px) rotate(8deg);
+            }
+        }
+
+        /* PROFIL */
         .profile {
             max-width: 1050px;
             width: 100%;
@@ -43,9 +101,22 @@
             background: rgba(255,255,255,0.10);
             backdrop-filter: blur(12px);
             box-shadow: 0 15px 50px rgba(0,0,0,0.20);
+            position: relative;
+            z-index: 1;
+            animation: profileEnter 1.2s ease both;
         }
 
-        /* FOTO KOTAK TANPA BINGKAI PUTIH */
+        @keyframes profileEnter {
+            from {
+                opacity: 0;
+                transform: translateY(45px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
         .profile img {
             width: 250px;
             height: 300px;
@@ -55,22 +126,42 @@
             border-radius: 15px;
             border: none;
             box-shadow: 0 10px 30px rgba(0,0,0,0.25);
+            animation: photoFloat 4s ease-in-out infinite;
+        }
+
+        @keyframes photoFloat {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
         }
 
         .profile h1 {
             font-size: 42px;
             line-height: 1.2;
             margin-bottom: 12px;
+            animation: textEnter 1s 0.3s both;
         }
 
         .profile h3 {
             color: #c9d9ff;
             font-weight: 500;
+            animation: textEnter 1s 0.5s both;
         }
 
         .profile p {
             margin: 20px 0;
             color: #edf2ff;
+            animation: textEnter 1s 0.7s both;
+        }
+
+        @keyframes textEnter {
+            from {
+                opacity: 0;
+                transform: translateX(25px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
         }
 
         .btn {
@@ -82,11 +173,13 @@
             text-decoration: none;
             font-weight: bold;
             transition: 0.3s;
+            animation: textEnter 1s 0.9s both;
         }
 
         .btn:hover {
             background: #dce6ff;
-            transform: translateY(-3px);
+            transform: translateY(-5px) scale(1.05);
+            box-shadow: 0 8px 20px rgba(0,0,0,0.2);
         }
 
         /* KONTEN */
@@ -122,6 +215,12 @@
             padding: 30px;
             border-radius: 18px;
             box-shadow: 0 8px 30px rgba(0,0,0,0.05);
+            transition: 0.4s;
+        }
+
+        .about:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 35px rgba(0,0,0,0.10);
         }
 
         /* HOBI */
@@ -136,15 +235,22 @@
             padding: 30px;
             border-radius: 18px;
             box-shadow: 0 8px 30px rgba(0,0,0,0.05);
-            transition: 0.3s;
+            transition: transform 0.4s, box-shadow 0.4s;
         }
 
         .hobby-card:hover {
-            transform: translateY(-7px);
+            transform: translateY(-10px) scale(1.02);
+            box-shadow: 0 18px 35px rgba(0,0,0,0.12);
         }
 
         .hobby-card .icon {
             font-size: 40px;
+            display: inline-block;
+            transition: transform 0.4s;
+        }
+
+        .hobby-card:hover .icon {
+            transform: rotate(15deg) scale(1.2);
         }
 
         .hobby-card h3 {
@@ -162,6 +268,11 @@
             padding: 35px;
             border-radius: 20px;
             color: white;
+            transition: transform 0.4s;
+        }
+
+        .contact:hover {
+            transform: translateY(-5px);
         }
 
         .contact h2 {
@@ -176,6 +287,25 @@
             color: white;
             font-weight: bold;
             text-decoration: none;
+            display: inline-block;
+            transition: 0.3s;
+        }
+
+        .contact a:hover {
+            transform: translateX(7px);
+            color: #c9d9ff;
+        }
+
+        /* ANIMASI SAAT SCROLL */
+        .reveal {
+            opacity: 0;
+            transform: translateY(45px);
+            transition: opacity 0.8s ease, transform 0.8s ease;
+        }
+
+        .reveal.show {
+            opacity: 1;
+            transform: translateY(0);
         }
 
         /* FOOTER */
@@ -186,7 +316,7 @@
             color: white;
         }
 
-        /* RESPONSIVE HP */
+        /* RESPONSIVE */
         @media (max-width: 700px) {
             .profile {
                 flex-direction: column;
@@ -207,6 +337,25 @@
             .hobby-container {
                 grid-template-columns: 1fr;
             }
+
+            .ornament {
+                font-size: 25px;
+                opacity: 0.2;
+            }
+        }
+
+        /* MENGHORMATI PENGATURAN REDUCE MOTION */
+        @media (prefers-reduced-motion: reduce) {
+            *, *::before, *::after {
+                scroll-behavior: auto !important;
+                animation: none !important;
+                transition: none !important;
+            }
+
+            .reveal {
+                opacity: 1;
+                transform: none;
+            }
         }
     </style>
 </head>
@@ -215,13 +364,13 @@
 
     <!-- PROFIL UTAMA -->
     <header id="beranda">
-  <!-- ORNAMEN ANIMASI -->
-    <div class="floating-ornaments">
-        <span class="ornament music">🎵</span>
-        <span class="ornament guitar">🎸</span>
-        <span class="ornament volley">🏐</span>
-        <span class="ornament music-two">🎶</span>
-    </div>
+
+        <div class="floating-ornaments">
+            <span class="ornament music">🎵</span>
+            <span class="ornament guitar">🎸</span>
+            <span class="ornament volley">🏐</span>
+            <span class="ornament music-two">🎶</span>
+        </div>
 
         <div class="profile">
 
@@ -248,13 +397,12 @@
             </div>
 
         </div>
-
     </header>
 
     <main>
 
         <!-- TENTANG SAYA -->
-        <section id="tentang">
+        <section id="tentang" class="reveal">
 
             <div class="section-title">
                 <span>About Me</span>
@@ -275,7 +423,7 @@
         </section>
 
         <!-- HOBI -->
-        <section id="hobi">
+        <section id="hobi" class="reveal">
 
             <div class="section-title">
                 <span>My Interest</span>
@@ -315,7 +463,7 @@
         </section>
 
         <!-- KONTAK -->
-        <section class="contact" id="kontak">
+        <section class="contact reveal" id="kontak">
 
             <h2>Hubungi Saya</h2>
 
@@ -341,6 +489,26 @@
             All Rights Reserved.
         </p>
     </footer>
+
+    <!-- JAVASCRIPT ANIMASI SCROLL -->
+    <script>
+        const revealElements = document.querySelectorAll(".reveal");
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach((entry) => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add("show");
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, {
+            threshold: 0.15
+        });
+
+        revealElements.forEach((element) => {
+            observer.observe(element);
+        });
+    </script>
 
 </body>
 </html>
